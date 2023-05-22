@@ -1,2 +1,3 @@
 out/roku-deploy.zip
 out/*
+.vscode/launch.json
