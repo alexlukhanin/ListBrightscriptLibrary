@@ -12,8 +12,8 @@ sub init()
 
     print "Press 'Home' key to exit"
     
-    ' instantiate a new linked list entity
-    list = LinkedList().New()
+    ' instantiate a new linked list entity by calling the _New method ("constructor")
+    list = LinkedList()._New()
     print list
 
     ' check if list is empty
@@ -39,4 +39,14 @@ sub init()
     print "After add last" list 
     print ">>>> size of the list = "; LinkedList().Size(list)
     print " >>> list = "; LinkedList().ToString(list)
+
+    head = LinkedList().GetFirst(list)
+
+    list2 = LinkedList()._New()
+    'checking if list2 is empty and fetching first element
+    head2 = LinkedList().GetFirst(list2)
+    tail2 = LinkedList().GetLast(list2)
+
+
+    ' print "getAllMeta = "; m.top.getAllMeta()
 end sub

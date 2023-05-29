@@ -1,52 +1,47 @@
 
-
 '''''''''
 ' LinkedList: A linked list implementation in BrightScript 
 '   It returns an object with the following methods:
-'   New() as object
-'   AddFront(list as object, value as dynamic) as void
-'   AddLast(list as object, value as dynamic) as void
+'   _New() as object
+'   AddFront(list as object, item as dynamic) as void
+'   AddLast(list as object, item as dynamic) as void
 '   Size(list as object) as integer
 '   IsEmpty(list as object) as boolean
-'   Contains(list as object, value as dynamic) as boolean
-'   Node(value as dynamic, nextNode as object) as object
+'   Contains(list as object, item as dynamic) as boolean
+'   Node(item as dynamic, nextNode as object) as object
 ' 
 ' @return {object}
 '''''''''
 function LinkedList() as object
+    print "LinkedList() run"
+
     this = {
 
-        ' field private contains private functions
-        "private": {
-            "privateFunction": function()
-                print "private function RUN!!!"
-            end function
+        ' field private contains "_private" methods and fields
+        ' we use separate "_private" field (object) to store private methods and fields
+        '
+        ' Brightscript does not support private methods and fields, 
+        ' so we use a convention to indicate that a method or field is private
+        ' as well as we use a convention to indicate that a method is a constructor of an object
+        
+        "_private": {
             
-            "Node": function(value, nextNode)
+            "Node": function(item, nextNode)
                 node = {
-                    "value": value,
+                    "item": item,
                     "nextNode": nextNode
                 }
-                m.privateFunction()
                 return node
             end function
         }
 
-        ' "Node": function(value, nextNode)
-        '     node = {
-        '         "value": value,
-        '         "nextNode": nextNode
-        '     }
-        '     m.private.privateFunction()
-        '     return node
-        ' end function
 
         '''''''''
         ' New: Creates a new linked list - "Constructor" of the object
         '
         ' @return {object} list - the new linked list
         '''''''''
-        "New": function()
+        "_New": function()
             list = {
                 "first": invalid,
                 "last": invalid,
@@ -55,8 +50,9 @@ function LinkedList() as object
             return list
         end function
 
-        "AddFirst": function(list, value) as void
-            newNode = m.private.Node(value, invalid)
+        "AddFirst": function(list, item) as void
+            newNode = m._private.Node(item, invalid)
+
             if list.first = invalid then
                 list.first = newNode
                 list.last = newNode
@@ -67,8 +63,8 @@ function LinkedList() as object
             list.size = list.size + 1
         end function
 
-        "AddLast": function(list, value) as void
-            newNode = m.private.Node(value, invalid)
+        "AddLast": function(list, item) as void
+            newNode = m._private.Node(item, invalid)
             if list.last = invalid then
                 list.first = newNode
                 list.last = newNode
@@ -79,6 +75,26 @@ function LinkedList() as object
             list.size = list.size + 1
         end function
 
+        "GetFirst": function(list) as dynamic
+            try
+                item = list.first.item
+            catch e
+                print "Warning: the list is empty"
+                item = invalid
+            end try
+            return item
+        end function
+
+        "GetLast": function(list) as dynamic
+            try
+                item = list.last.item
+            catch e
+                print "Warning: the list is empty"
+                item = invalid
+            end try
+            return item
+        end function
+
         "Size": function(list) as integer
             return list.size
         end function
@@ -87,10 +103,10 @@ function LinkedList() as object
             return list.size = 0
         end function
 
-        "Contains": function(list, value) as boolean
+        "Contains": function(list, item) as boolean
             node = list.first
             while node <> invalid
-                if node.value = value then
+                if node.item = item then
                     return true
                 end if
                 node = node.nextNode
@@ -102,8 +118,8 @@ function LinkedList() as object
             node = list.first
             str = ""
             while node <> invalid
-                ?" -- node.value: "; node.value
-                str = str + node.value + " "
+                ?" -- node.item: "; node.item
+                str = str + node.item + " "
                 node = node.nextNode
             end while
             return str
