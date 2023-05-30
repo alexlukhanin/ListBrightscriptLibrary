@@ -4,6 +4,7 @@
 
 <script type="text/brightscript" uri="pkg:/components/FlagScene.brs" />
 <script type="text/brightscript" uri="pkg:/source/Lib/List.brs" />
+<script type="text/brightscript" uri="pkg:/source/Lib/Debug.brs" />
 
 <children>
     <Rectangle id="backgroundUp" color="0x0000FF" width="1280" height="360" />

@@ -12,6 +12,12 @@ sub init()
 
     print "Press 'Home' key to exit"
     
+
+    Debug().GetExecutionTime(testLinkedList, 1) ' run testLinkedList() and measure execution time once
+    
+end sub
+
+sub testLinkedList()
     ' instantiate a new linked list entity by calling the _New method ("constructor")
     list = LinkedList()._New()
     print list
@@ -47,6 +53,4 @@ sub init()
     head2 = LinkedList().GetFirst(list2)
     tail2 = LinkedList().GetLast(list2)
 
-
-    ' print "getAllMeta = "; m.top.getAllMeta()
 end sub
